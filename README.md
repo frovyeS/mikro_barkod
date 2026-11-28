@@ -1,27 +1,39 @@
-# Mikro Barkod — MVP
+# Mikro Barkod
 
-Mobil öncelikli ürün/barkod keşfi ve fiyat karşılaştırma prototipi.
+Barkodu okut, ürünü bul, mağaza fiyatlarını birim fiyatla karşılaştır. Mobil ve masaüstünde çalışan, açık/koyu temalı, kurulum gerektirmeyen bir web uygulaması (React + Vite).
 
-## Çalıştırma
+## GitHub Pages'e yayınlama (terminal gerekmez)
+
+1. ZIP'i açın; içindeki **tüm dosya ve klasörleri** (`.github` klasörü dahil) deponun ana dizinine yükleyin.
+2. GitHub'da **Settings → Pages → Source → GitHub Actions** seçin.
+3. **Actions** sekmesinde yayın işinin yeşil tikle bitmesini bekleyin. Adres Pages ayarında görünür.
+
+Not: Eski sürümden kalan `mikro-barkod/` klasörünü ve `YAMA_KURULUM.txt` dosyasını depodan silebilirsiniz; artık kullanılmıyor.
+
+## Özellikler
+
+- Kamera ile EAN-13 / EAN-8 / UPC barkod okuma (destekleyen tarayıcılarda), flaş ve ön/arka kamera seçimi
+- Elle barkod girişi, kontrol basamağı doğrulaması, 12 haneli UPC-A → EAN-13 eşleme
+- Katalog araması (Türkçe harf duyarlı), ürün oluşturma ve düzenleme, ürün görseli seçimi
+- Fiyat ekleme, silme, sıralama; paket miktarından birim fiyat (₺/kg, ₺/L, ₺/adet) ve en düşük fiyat vurgusu
+- Favoriler, fiyat takibi listesi, son tarananlar
+- Barkodun gerçek EAN çizimi (SVG)
+- Sistem / Açık / Koyu tema
+- JSON dışa / içe aktarım (içe aktarma mevcut kayıtlarla birleştirir)
+- Ana ekrana eklenebilir, çevrimdışı açılır (PWA)
+- Tüm ikon ve illüstrasyonlar SVG; emoji kullanılmaz, dış font/kütüphane yüklenmez
+
+## Veri ve gizlilik
+
+Kayıtlar yalnızca tarayıcının `localStorage` alanında saklanır. Kamera görüntüsü kaydedilmez ve gönderilmez. Canlı mağaza fiyatı entegrasyonu yoktur; fiyatlar kullanıcının eklediği kayıtlardır.
+
+## Kamera notu
+
+Kamera yalnızca HTTPS (GitHub Pages dahil) veya `localhost` üzerinde çalışır. Barkod okuma tarayıcının `BarcodeDetector` API'sine dayanır (Android Chrome/Edge). Desteklemeyen tarayıcılarda uygulama bunu söyler ve elle girişe yönlendirir.
+
+## Yerelde çalıştırma (isteğe bağlı)
 
 ```bash
 npm install
 npm run dev
 ```
-
-Vite geliştirme sunucusunu açın. Kamera özelliği için localhost veya HTTPS ortamı gerekir. Tarayıcı `BarcodeDetector` API'sini destekliyorsa EAN-13/EAN-8/UPC/Code 128 algılaması denenir; destek yoksa manuel giriş kullanılabilir.
-
-## MVP kapsamı
-- Barkod girişinde EAN/UPC kontrol basamağı doğrulama
-- Uygun tarayıcılarda kamera tabanlı barkod algılama
-- Katalog araması, ürün detayı, ürün oluşturma akışı
-- Favori, takip, son tarananlar
-- JSON içe/dışa aktarım ve localStorage
-- Mobil responsive arayüz
-- Boş fiyat durumunu dürüstçe gösterme
-
-## Bilinçli sınırlamalar
-Bu prototipte canlı mağaza API/feed entegrasyonu, sunucu/veritabanı, gerçek ürün kataloğu, bildirim altyapısı, grafik geçmişi, otomatik ürün eşleştirme ve fiyat doğrulama bulunmuyor. Mağaza fiyatları uydurulmaz; ürün kayıtları örnek/demo kataloğudur. Flaş kontrolü ve kamera değişimi cihaz/tarayıcı API desteğine göre geliştirilecek. Kamera izni yalnızca tarama modunda istenir ve tarama sonrasında akış kapatılır. Kamera görüntüsü kaydedilmez.
-
-## GitHub
-Projeyi ZIP'ten çıkarıp yeni GitHub deposuna yükleyebilirsiniz. `.gitignore` `node_modules` ve build çıktılarını hariç tutar.
